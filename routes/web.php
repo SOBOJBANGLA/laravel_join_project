@@ -319,6 +319,8 @@ Route::get('cron', function () {
 Route::get('rate-update', function () {
     return Illuminate\Support\Facades\Artisan::call('schedule:run');
 })->name('rate-update');
-
+Route::match(['get', 'post'], 'success', 'PaymentController@success')->name('success');
+Route::match(['get', 'post'], 'failed', 'PaymentController@failed')->name('failed');
+Route::match(['get', 'post'], 'payment/{code}/{trx?}/{type?}', 'PaymentController@gatewayIpn')->name('ipn');
 
 require __DIR__.'/auth.php';
