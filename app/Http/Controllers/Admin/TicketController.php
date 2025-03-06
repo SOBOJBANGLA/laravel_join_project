@@ -28,6 +28,10 @@ class TicketController extends Controller
     }
 
     public function tickets(Request $request, string $type = null)
+<<<<<<< HEAD
+=======
+
+>>>>>>> b57d26725db513419a6dd530099a9a578eb5edaa
     {
 
         $search = $request->all();
