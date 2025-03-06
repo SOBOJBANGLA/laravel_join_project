@@ -27,7 +27,7 @@ class TicketController extends Controller
         });
     }
 
-    public function tickets(string $type = null, Request $request)
+    public function tickets(Request $request, string $type = null)
     {
 
         $search = $request->all();
