@@ -308,6 +308,39 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
 
 });
 
+
+Route::get('/agent/login', 'Auth\AgentLoginController@show_login')->name('agent.login');
+Route::post('/agent/login/submit', 'Auth\AgentLoginController@show_login_submit')->name('agent.login.submit');
+Route::get('/agent/referral/join/{id}', 'Auth\AgentLoginController@agent_refer_join')->name('agent.refer.join');
+Route::post('/agent/referral/join/save', 'Auth\AgentLoginController@agent_refer_join_save')->name('agent.refer.join.save');
+
+
+Route::group(['middleware' => ['auth:agent']], function () {
+    Route::prefix('agent')->group(function () {
+        Route::get('/', 'Agent\AgentController@index')->name('agent.dashboard');
+
+        Route::get('/create/user', 'Agent\AgentController@create_user')->name('agent.create.user');
+        Route::post('/create/user/save', 'Agent\AgentController@create_user_save')->name('agent.create.user.save');
+        Route::get('/all/users', 'Agent\AgentController@all_users')->name('agent.all.user');
+
+        Route::get('/user/deposit', 'Agent\AgentController@user_deposit')->name('agent.user.deposit');
+        Route::post('/user/deposit/update', 'Agent\AgentController@user_deposit_update')->name('agent.deposit.update');
+
+
+        Route::get('/user/withdraw', 'Agent\AgentController@user_withdraw')->name('agent.user.withdraw');
+        Route::post('/user/withdraw/update', 'Agent\AgentController@user_withdraw_update')->name('agent.withdraw.update');
+
+
+        Route::get('/fund', 'Agent\AgentController@fund')->name('agent.fund');
+        Route::post('/transfer/fund/update', 'Agent\AgentController@transfer_fund_update')->name('agent.transfer.update');
+        Route::get('/fund/history', 'Agent\AgentController@fund_history')->name('agent.fund.history');
+        Route::post('/fund/send/save', 'Agent\AgentController@fund_send_save')->name('agent.fund.send.save');
+        Route::post('/fund/send/user', 'Agent\AgentController@fund_send_user')->name('agent.fund.send.user');
+
+        Route::get('/agent/logout', 'Auth\AgentLoginController@agent_logout')->name('agent.logout');
+    });
+});
+
 Route::get('queue-work', function () {
     return Illuminate\Support\Facades\Artisan::call('queue:work', ['--stop-when-empty' => true]);
 })->name('queue.work');
