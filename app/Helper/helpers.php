@@ -2,149 +2,72 @@
 
 use \Illuminate\Support\Str;
 
-// function template($asset = false)
-// {
-//     $activeTheme = config('basic.theme');
-//     if ($asset) return 'assets/themes/' . $activeTheme . '/';
-//     return 'themes.' . $activeTheme . '.';
-// }
-
-
-
-
-if (!function_exists('template')) {
-    function template($full = false) {
-        return $full ? 'default_template_full' : 'default_template';
-    }
+function template($asset = false)
+{
+    $activeTheme = config('basic.theme');
+    if ($asset) return 'assets/themes/' . $activeTheme . '/';
+    return 'themes.' . $activeTheme . '.';
 }
 
 
-// function recursive_array_replace($find, $replace, $array)
-// {
-//     if (!is_array($array)) {
-//         return str_replace($find, $replace, $array);
-//     }
-//     $newArray = [];
-//     foreach ($array as $key => $value) {
-//         $newArray[$key] = recursive_array_replace($find, $replace, $value);
-//     }
-//     return $newArray;
-// }
+function recursive_array_replace($find, $replace, $array)
+{
+    if (!is_array($array)) {
+        return str_replace($find, $replace, $array);
+    }
+    $newArray = [];
+    foreach ($array as $key => $value) {
+        $newArray[$key] = recursive_array_replace($find, $replace, $value);
+    }
+    return $newArray;
+}
 
-if (!function_exists('recursive_array_replace')) {
-    function recursive_array_replace($search, $replace, $subject) {
-        if (is_array($subject)) {
-            foreach ($subject as $key => $value) {
-                $subject[$key] = recursive_array_replace($search, $replace, $value);
+function menuActive($routeName, $type = null)
+{
+    $class = 'active';
+    if ($type == 3) {
+        $class = 'selected';
+    } elseif ($type == 2) {
+        $class = 'has-arrow active';
+    } elseif ($type == 1) {
+        $class = 'in';
+    }
+    if (is_array($routeName)) {
+        foreach ($routeName as $key => $value) {
+            if (request()->routeIs($value)) {
+                return $class;
             }
-            return $subject;
         }
-        return str_replace($search, $replace, $subject);
-    }
-}
-
-// function menuActive($routeName, $type = null)
-// {
-//     $class = 'active';
-//     if ($type == 3) {
-//         $class = 'selected';
-//     } elseif ($type == 2) {
-//         $class = 'has-arrow active';
-//     } elseif ($type == 1) {
-//         $class = 'in';
-//     }
-//     if (is_array($routeName)) {
-//         foreach ($routeName as $key => $value) {
-//             if (request()->routeIs($value)) {
-//                 return $class;
-//             }
-//         }
-//     } elseif (request()->routeIs($routeName)) {
-//         return $class;
-//     }
-// }
-
-if (!function_exists('menuActive')) {
-    function menuActive($routeName, $type = null)
-    {
-        $class = 'active';
-        if ($type == 3) {
-            $class = 'selected';
-        } elseif ($type == 2) {
-            $class = 'has-arrow active';
-        } elseif ($type == 1) {
-            $class = 'in';
-        }
-
-        if (is_array($routeName)) {
-            foreach ($routeName as $key => $value) {
-                if (request()->routeIs($value)) {
-                    return $class;
-                }
-            }
-        } elseif (request()->routeIs($routeName)) {
-            return $class;
-        }
+    } elseif (request()->routeIs($routeName)) {
+        return $class;
     }
 }
 
 
-// function getFile($image, $clean = '')
-// {
-//     return file_exists($image) && is_file($image) ? asset($image) . $clean : asset(config('location.default'));
-// }
-if (!function_exists('getFile')) {
-    function getFile($image, $clean = '')
-    {
-        return file_exists($image) && is_file($image) ? asset($image) . $clean : asset(config('location.default'));
+function getFile($image, $clean = '')
+{
+    return file_exists($image) && is_file($image) ? asset($image) . $clean : asset(config('location.default'));
+}
+
+function removeFile($path)
+{
+    return file_exists($path) && is_file($path) ? @unlink($path) : false;
+}
+
+function loopIndex($object)
+{
+    return ($object->currentPage() - 1) * $object->perPage() + 1;
+}
+
+function getAmount($amount, $length = 0)
+{
+    if (0 < $length) {
+        return number_format($amount + 0, $length);
     }
+    return $amount + 0;
 }
 
 
-// function removeFile($path)
-// {
-//     return file_exists($path) && is_file($path) ? @unlink($path) : false;
-// }
-
-if (!function_exists('removeFile')) {
-    function removeFile($path)
-    {
-        return file_exists($path) && is_file($path) ? @unlink($path) : false;
-    }
-}
-
-// function loopIndex($object)
-// {
-//     return ($object->currentPage() - 1) * $object->perPage() + 1;
-// }
-if (!function_exists('loopIndex')) {
-    function loopIndex($object)
-    {
-        return ($object->currentPage() - 1) * $object->perPage() + 1;
-    }
-}
-
-
-// function getAmount($amount, $length = 0)
-// {
-//     if (0 < $length) {
-//         return number_format($amount + 0, $length);
-//     }
-//     return $amount + 0;
-// }
-
-if (!function_exists('getAmount')) {
-    function getAmount($amount, $length = 0)
-    {
-        if (0 < $length) {
-            return number_format($amount + 0, $length);
-        }
-        return $amount + 0;
-    }
-}
-
-
-if (!function_exists('strRandom')) {
 function strRandom($length = 12)
 {
     $characters = 'ABCDEFGHJKMNOPQRSTUVWXYZ123456789';
@@ -155,21 +78,17 @@ function strRandom($length = 12)
     }
     return $randomString;
 }
-}
 
-if (!function_exists('diffForHumans')) {
 function diffForHumans($date)
 {
     $lang = session()->get('lang');
     \Carbon\Carbon::setlocale($lang);
     return \Carbon\Carbon::parse($date)->diffForHumans();
-}}
+}
 
-if (!function_exists('dateTime')) {
 function dateTime($date, $format = 'd M, Y h:i A')
 {
     return date($format, strtotime($date));
-}
 }
 
 if (!function_exists('putPermanentEnv')) {
@@ -185,7 +104,6 @@ if (!function_exists('putPermanentEnv')) {
     }
 }
 
-if (!function_exists('checkTo')) {
 function checkTo($currencies, $selectedCurrency = 'USD')
 {
     foreach ($currencies as $key => $currency) {
@@ -194,9 +112,7 @@ function checkTo($currencies, $selectedCurrency = 'USD')
         }
     }
 }
-}
 
-if (!function_exists('code')) {
 function code($length)
 {
     if ($length == 0) return 0;
@@ -207,18 +123,12 @@ function code($length)
     }
     return random_int($min, $max);
 }
-}
-
-if (!function_exists('invoice')) {
 
 function invoice()
 {
 
     return time() . code(4);
 }
-}
-
-if (!function_exists('wordTruncate')) {
 
 function wordTruncate($string, $offset = 0, $length = null): string
 {
@@ -226,9 +136,6 @@ function wordTruncate($string, $offset = 0, $length = null): string
     isset($length) ? array_splice($words, $offset, $length) : array_splice($words, $offset);
     return implode(" ", $words);
 }
-}
-
-if (!function_exists('linkToEmbed')) {
 
 function linkToEmbed($string)
 {
@@ -242,50 +149,33 @@ function linkToEmbed($string)
     }
     return $string;
 }
-}
 
-if (!function_exists('slug')) {
 
 function slug($title)
 {
     return \Illuminate\Support\Str::slug($title);
 }
-}
-
-if (!function_exists('title2snake')) {
 
 function title2snake($string)
 {
     return Str::title(str_replace(' ', '_', $string));
 }
-}
-
-if (!function_exists('snake2Title')) {
 
 function snake2Title($string)
 {
     return Str::title(str_replace('_', ' ', $string));
 }
-}
-
-if (!function_exists('kebab2Title')) {
 
 function kebab2Title($string)
 {
     return Str::title(str_replace('-', ' ', $string));
 }
-}
-
-if (!function_exists('getLevelUser')) {
 
 function getLevelUser($id)
 {
     $ussss = new \App\Models\User();
     return $ussss->referralUsers([$id]);
 }
-}
-
-if (!function_exists('getPercent')) {
 
 function getPercent($total, $current)
 {
@@ -296,17 +186,11 @@ function getPercent($total, $current)
     }
     return round($percent, 0);
 }
-}
-
-if (!function_exists('flagLanguage')) {
 
 function flagLanguage($data)
 {
     return '{' . rtrim($data, ',') . '}';
 }
-}
-
-if (!function_exists('getIpInfo')) {
 
 function getIpInfo()
 {
@@ -396,44 +280,32 @@ function getIpInfo()
 
     return $data;
 }
-}
-
-if (!function_exists('resourcePaginate')) {
 
 
 function resourcePaginate($data, $callback)
 {
     return $data->setCollection($data->getCollection()->map($callback));
 }
-}
 
-if (!function_exists('clean')) {
 
 function clean($string)
 {
     $string = str_replace(' ', '_', $string); // Replaces all spaces with hyphens.
     return preg_replace('/[^A-Za-z0-9\-]/', '', $string); // Removes special chars.
 }
-}
-
-if (!function_exists('camelToWord')) {
 
 function camelToWord($str)
 {
     $arr = preg_split('/(?=[A-Z])/', $str);
     return trim(join(' ', $arr));
 }
-}
 
-if (!function_exists('in_array_any')) {
 
 function in_array_any($needles, $haystack)
 {
     return (bool)array_intersect($needles, $haystack);
 }
-}
 
-if (!function_exists('adminAccessRoute')) {
 
 function adminAccessRoute($search)
 {
@@ -456,22 +328,15 @@ function adminAccessRoute($search)
         });
     }
 }
-}
-
-if (!function_exists('shortName')) {
 
 function shortName($name, $length = 3)
 {
     return Str::limit(strtoupper($name), $length, '');
 }
-}
-
-if (!function_exists('basicControl')) {
 
 function basicControl()
 {
     return \App\Models\Configure::firstOrCreate(['id' => 1]);
-}
 }
 
 if (!function_exists('getRoute')) {
@@ -515,7 +380,6 @@ if (!function_exists('getTitle')) {
         return ucwords(preg_replace('/[^A-Za-z0-9]/', ' ', $title));
     }
 }
-if (!function_exists('convertRate')) {
 function convertRate($currencyCode, $payout)
 {
     $convertRate = 0;
@@ -526,5 +390,4 @@ function convertRate($currencyCode, $payout)
     }
 
     return (float)$convertRate;
-}
 }

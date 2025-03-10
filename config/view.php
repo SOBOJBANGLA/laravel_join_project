@@ -13,9 +13,14 @@ return [
     |
     */
 
+    // 'paths' => [
+    //     resource_path('views'),
+    // ],
+
     'paths' => [
-        resource_path('views'),
-    ],
+    resource_path('views'),
+    resource_path('views/default_template'), // Add this if you have a theme
+],
 
     /*
     |--------------------------------------------------------------------------

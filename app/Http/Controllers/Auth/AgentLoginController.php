@@ -20,7 +20,7 @@ class AgentLoginController extends Controller
     {
         $request->validate([
             'email' => 'required',
-            'password' => 'required|min:8',
+            'password' => 'required|min:5',
         ]);
 
         $remember = ($request->has('remember')) ? true : false;
