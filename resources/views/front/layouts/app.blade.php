@@ -26,6 +26,10 @@
           href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
           rel="stylesheet"
         />
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/css/intlTelInput.css" />
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
         <style>
           :root {
             --sidebar-width: 250px;
@@ -613,6 +617,11 @@
             color: orange;
             text-decoration: none;
           }
+          .iti__country {
+    color: black !important;
+    font-weight: normal !important;
+}
+
         </style>
 	</head>
 
@@ -629,12 +638,14 @@
         <div class="main-content">
             <!-- Header -->
             @include('front.layouts.header')
+            @include('front.login')
+            @include('front.register')
+
       
             @yield('content')
           </div>
 
 
-      
       
 
         <!-- JAVASCRIPTS -->
@@ -646,6 +657,8 @@
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.2/js/bootstrap.bundle.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/owl.carousel.min.js"></script>
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.19/js/intlTelInput.min.js"></script>
+      <script src="assets/Js/Auth.js"></script>
       <script>
         $(document).ready(function () {
           // Sticky Category Section
