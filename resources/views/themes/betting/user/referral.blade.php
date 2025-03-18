@@ -16,7 +16,7 @@
                             <div class="form-group">
                                 <div class="input-group input-box">
                                     <input type="text"
-                                           value="{{route('register.sponsor',[Auth::user()->username])}}"
+                                           value="{{route('register',[Auth::user()->username])}}"
                                            class="form-control" id="sponsorURL" readonly="">
                                     <div class="input-group-append">
                                             <span class="input-group-text form-control copytext" id="copyBoard"

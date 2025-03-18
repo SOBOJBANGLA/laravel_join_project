@@ -85,53 +85,6 @@
                 </div>
             </div>
         </div>
-
-        <!-- bKash Payment Modal -->
-        <div class="modal fade" id="bkashModal" tabindex="-1" role="dialog">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title">বিকাশ পেমেন্ট</h5>
-                        <button type="button" class="close" data-dismiss="modal">
-                            <span>&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <form id="bkashPaymentForm">
-                            <div class="form-group">
-                                <label>পরিমাণ</label>
-                                <input type="text" class="form-control" id="bkashAmount" readonly>
-                            </div>
-                            
-                            <div class="form-group">
-                                <label>বিকাশ নাম্বার</label>
-                                <input type="text" class="form-control" name="phone" placeholder="01XXXXXXXXX">
-                                <small class="text-muted">আপনার বিকাশ একাউন্ট নাম্বার দিন</small>
-                            </div>
-
-                            <div id="bkashPaymentInfo" class="d-none">
-                                <div class="alert alert-info">
-                                    <p>১। আপনার বিকাশ অ্যাপ ওপেন করুন</p>
-                                    <p>২। Send Money মেনুতে যান</p>
-                                    <p>৩। <span id="merchantNumber">XXXXXXXXXX</span> নাম্বারে টাকা পাঠান</p>
-                                    <p>৪। নিচে TrxID দিন</p>
-                                </div>
-                                
-                                <div class="form-group">
-                                    <label>বিকাশ TrxID</label>
-                                    <input type="text" class="form-control" name="bkash_trx_id" placeholder="8N7A6D5EE">
-                                    <small class="text-muted">বিকাশ থেকে পাওয়া TrxID দিন</small>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="initiateBtn" class="btn btn-primary">পেমেন্ট করুন</button>
-                        <button type="button" id="verifyBtn" class="btn btn-success d-none">যাচাই করুন</button>
-                    </div>
-                </div>
-            </div>
-        </div>
     @endpush
 
 
@@ -245,59 +198,6 @@
             $("#addFundModal").modal("hide");
         });
 
-        let currentTrxId = null;
-        
-        // Handle bKash payment
-        if(gateway === 'bkash') {
-            $('#bkashAmount').val(amount);
-            $('#bkashModal').modal('show');
-        }
-        
-        $('#initiateBtn').on('click', function() {
-            let phone = $('input[name="phone"]').val();
-            
-            $.ajax({
-                url: "{{ route('bkash.create') }}",
-                type: 'POST',
-                data: {
-                    amount: amount,
-                    gateway_id: id,
-                    phone: phone
-                },
-                success: function(response) {
-                    if(response.success) {
-                        currentTrxId = response.transaction_id;
-                        $('#bkashPaymentInfo').removeClass('d-none');
-                        $('#initiateBtn').addClass('d-none');
-                        $('#verifyBtn').removeClass('d-none');
-                        toastr.success('Please complete payment from your bKash app');
-                    } else {
-                        toastr.error(response.message);
-                    }
-                }
-            });
-        });
-        
-        $('#verifyBtn').on('click', function() {
-            let bkash_trx_id = $('input[name="bkash_trx_id"]').val();
-            
-            $.ajax({
-                url: "{{ route('bkash.verify') }}",
-                type: 'POST',
-                data: {
-                    transaction_id: currentTrxId,
-                    bkash_trx_id: bkash_trx_id
-                },
-                success: function(response) {
-                    if(response.success) {
-                        toastr.success(response.message);
-                        window.location.href = response.redirect;
-                    } else {
-                        toastr.error(response.message);
-                    }
-                }
-            });
-        });
     </script>
 @endpush
 

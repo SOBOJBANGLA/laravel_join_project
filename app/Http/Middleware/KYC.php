@@ -22,12 +22,12 @@ class KYC
 
         $validator = Validator::make($request->all(),[]);
 
-        if($basic->identity_verification == 1 && Auth::user()->identity_verify != '2'){
+        if($basic->identity_verification == 0 && Auth::user()->identity_verify != '2'){
             $validator->errors()->add('identity', '1');
             return redirect()->route('user.profile')->withErrors($validator)->withInput();
         }
 
-        if($basic->address_verification == 1 && Auth::user()->address_verify != '2'){
+        if($basic->address_verification == 0 && Auth::user()->address_verify != '2'){
             $validator->errors()->add('addressVerification', '1');
             return redirect()->route('user.profile')->withErrors($validator)->withInput();
         }

@@ -2,12 +2,12 @@
 
 use \Illuminate\Support\Str;
 
-// function template($asset = false)
-// {
-//     $activeTheme = config('basic.theme');
-//     if ($asset) return 'assets/themes/' . $activeTheme . '/';
-//     return 'themes.' . $activeTheme . '.';
-// }
+function template($asset = false)
+{
+    $activeTheme = config('basic.theme');
+    if ($asset) return 'assets/themes/' . $activeTheme . '/';
+    return 'themes.' . $activeTheme . '.';
+}
 
 
 

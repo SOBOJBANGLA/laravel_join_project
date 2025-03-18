@@ -44,89 +44,85 @@
 
 
             @include($theme.'partials.home.slider')
-            <h4 style="color: white; text-align: left; margin-bottom: 3px; padding-left: 10px;">Categories</h4>
-
-    <!-- Category Bar -->
-    <div class="category-bar-container">
-        <div class="category-bar">
-            <div class="category-item active" data-category="CASINO LIVE"><i class="fas fa-dice"></i> Casino Live</div>
-            <div class="category-item" data-category="Crash Game"><i class="fas fa-chart-line"></i> Crash</div>
-            <div class="category-item" data-category="Slot Game"><i class="fas fa-coins"></i> Slots</div>
-            <div class="category-item" data-category="Sports"><i class="fas fa-futbol"></i> Sports</div>
-            <div class="category-item" data-category="Table Game"><i class="fas fa-table"></i> Table</div>
-            <div class="category-item" data-category="Lottery"><i class="fas fa-ticket"></i> Lottery</div>
-        </div>
-    </div>
-
-    <!-- Options Bar -->
-    <div class="options-bar" id="options-bar">
-        <!-- Default options will be loaded here -->
-    </div>
-
-
-            {{-- @include($theme.'partials.home.navbar') --}}
+            @include($theme.'partials.home.navbar')
             {{--            @if(Request::routeIs('match'))--}}
             {{--                @include($theme.'partials.home.match')--}}
             {{--            @else--}}
             {{--                @include($theme.'partials.home.content')--}}
             {{--            @endif--}}
-            
+
 
             <div class="row">
                 @foreach($games as $games)
-                    <div class="col-6 col-md-4"> <!-- Two per row on mobile, three on desktop -->
+                    <div class="col-md-4">
                         <div class="card" style="width: 100%">
+                            {{--                            @if(!empty($games->game_icon))--}}
+                            {{--                                <img class="card-img-top"--}}
+                            {{--                                     src="{{$games->game_icon}}"--}}
+                            {{--                                     alt="Card image cap" style="height: 200px;width: 100%">--}}
+                            {{--                            @else--}}
+                            {{--                                <img class="card-img-top"--}}
+                            {{--                                     src="https://5.imimg.com/data5/SELLER/Default/2024/1/377630167/HB/TM/JD/184701247/casino-game.jpg"--}}
+                            {{--                                     alt="Card image cap">--}}
+                            {{--                            @endif--}}
+
                             <img class="card-img-top"
                                  src="{{$games->game_icon}}"
                                  alt="Card image cap" style="height: 200px;width: 100%">
-            
+
                             @if(Auth::user())
                                 <div class="card-body">
                                     <h5 class="card-title">{{$games->game_name}}</h5>
-            
+                                    {{--                                    <a href="{{route('game.open',$games->game_uuid)}}" target="_blank"--}}
+                                    {{--                                       data-game="$games->game_uuid"--}}
+
+                                    {{--                                       class="btn btn-primary game_id">Play</a>--}}
+
                                     <button type="button" class="btn btn-primary" data-bs-toggle="modal"
-                                            data-bs-target="#exampleModal{{$games->id}}"> <a href="{{route('game.open',$games->game_uuid)}}" target="_blank" style="color:white">
-                                        Play </a>
+                                            data-bs-target="#exampleModal">
+                                        Play
                                     </button>
-            
-                                    <!-- Modal -->
-                                    {{--  <div class="modal fade" id="exampleModal{{$games->id}}" tabindex="-1"
-                                         aria-labelledby="exampleModalLabel{{$games->id}}" aria-hidden="true">
+
+
+                                    {{--                                    <a href="#" data-game="{{$games->game_uuid}}"--}}
+
+                                    {{--                                       class="btn btn-primary game_id">Play</a>--}}
+
+
+                                    <div class="modal fade" id="exampleModal" tabindex="-1"
+                                         aria-labelledby="exampleModalLabel" aria-hidden="true">
                                         <div class="modal-dialog">
                                             <div class="modal-content">
                                                 <div class="modal-header">
-                                                    <h5 class="modal-title" id="exampleModalLabel{{$games->id}}">Game Rules</h5>
+                                                    <h5 class="modal-title" id="exampleModalLabel">Game Rules</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                             aria-label="Close"></button>
                                                 </div>
-
                                                 <div class="modal-body">
                                                     সেরাবাজি ক্যাসিনোর নিয়মাবলীঃ (অত্যন্ত গুরুত্বপূর্ণ!)
-                                                    <br><br>
+
                                                     লাভ এবং ক্ষতির অনুপাত:
                                                     ১ ক্রেডিট বাংলাদেশী টাকায় ১০ টাকার সমান । [ ১ = ১০ ]
-            
+
                                                     কেউ যদি লাইভ ক্যাসিনো তে ১০ টাকা বাজি ধরেন তাহলে তার বাংলাদেশী টাকায়
                                                     ১০০ টাকা বাজি ধরা হয়েছে । কারণ লাইভ ক্যাসিনো গুলা ক্রেডিট আকারে কাজ
                                                     করতেছে ।
-            
+
                                                     সমস্ত ক্যাসিনোর লাভ এবং ক্ষতির হিসাব এখন থেকে ১:১০ অনুপাত অনুযায়ী
                                                     হবে।
-                                                    <br><br>
+
                                                     জয়ের নিয়ম:
                                                     ক্যাসিনোতে প্রতি ১ ক্রেডিট জয়ের জন্য আপনার এক্সচেঞ্জ অ্যাকাউন্টে ১০
                                                     গুণ বেশি পরিমাণ ক্রেডিট যোগ হবে।
                                                     উদাহরণ: যদি আপনি ক্যাসিনোতে ১,০০০ ক্রেডিট জিতেন, তাহলে আপনার
                                                     এক্সচেঞ্জ অ্যাকাউন্টে ১০,০০০ ক্রেডিট যোগ হবে।
-            
-                                                    <br><br>
+
                                                     ক্ষতির নিয়ম:
                                                     ক্যাসিনোতে প্রতি ১ ক্রেডিট ক্ষতির জন্য আপনার এক্সচেঞ্জ অ্যাকাউন্ট
                                                     থেকে ১০ গুণ বেশি পরিমাণ ক্রেডিট কাটা হবে।
                                                     উদাহরণ: যদি আপনি ক্যাসিনোতে ১,০০০ ক্রেডিট হারান, তাহলে আপনার
                                                     এক্সচেঞ্জ অ্যাকাউন্ট থেকে ১০,০০০ ক্রেডিট কেটে নেওয়া হবে।
-                                                </div> 
-                                                
+                                                </div>
                                                 <div class="modal-footer">
                                                     <button type="button" class="btn btn-secondary"
                                                             data-bs-dismiss="modal">Close
@@ -134,21 +130,25 @@
                                                     <a href="{{route('game.open',$games->game_uuid)}}" target="_blank">
                                                         <button type="button" class="btn btn-primary">Play</button>
                                                     </a>
+
                                                 </div>
                                             </div>
                                         </div>
-                                    </div> --}}
-                                </div>  
+                                    </div>
+
+
+                                </div>
                             @else
                                 <div class="card-body">
-                                    <a href="{{route('login')}}" class="btn btn-primary">Play</a>
+                                    <a href="{{route('login')}}"
+                                       class="btn btn-primary">Play</a>
                                 </div>
                             @endif
                         </div>
                     </div>
                 @endforeach
+
             </div>
-            
 
 
         </div>
@@ -471,78 +471,7 @@
 
             }
         });
-        // Category data with routes and icons
-// Category data with routes
- const categoryOptions = {
-            "CASINO LIVE": {
-        "Dream Gaming": { "route": "<?= route('dream.gaming') ?>", "image": "<?= asset('assets/option/provider-awcmdg.png') ?>" },
-        "Evolution Live": { "route": "<?= route('evolution.live') ?>", "image": "<?= asset('assets/option/provider-evo.png') ?>" },
-        "Ezugi Live": { "route": "<?= route('ezugi.live') ?>", "image": "<?= asset('assets/option/icon-sbtech.png') ?>" },
-        "Pragmatic Play Live": { "route": "<?= route('pragmatic.play.live') ?>", "image": "<?= asset('assets/option/provider-awcmpp.png') ?>" },
-        "SA Gaming": { "route": "<?= route('sa.gaming') ?>", "image": "<?= asset('assets/option/provider-awcmsg.png') ?>" },
-        "Sexy": { "route": "<?= route('sexy') ?>", "image": "<?= asset('assets/option/provider-awcmsexy.png') ?>" }
-    },
-    "Crash Game": {
-        "Spribe": { "route": "<?= route('spribe') ?>", "image": "<?= asset('assets/option/provider-jdbaspribe.png') ?>" }
-    },
-    "Slot Game": {
-        "CQ9": { "route": "<?= route('cqnine') ?>", "image": "<?= asset('assets/option/provider-cq9.png') ?>" },
-        "Eazy Gaming": { "route": "<?= route('easy.gaming') ?>", "image": "<?= asset('assets/option/icon-promotion.png') ?>" },
-        "iDeal": { "route": "<?= route('ideal') ?>", "image": "<?= asset('assets/option/provider-awcmdg.png') ?>" },
-        "JDB Gaming": { "route": "<?= route('jbl.gaming') ?>", "image": "<?= asset('assets/option/provider-jdb.png') ?>" },
-        "Jili": { "route": "<?= route('jili') ?>", "image": "<?= asset('assets/option/provider-awcmjili.png') ?>" },
-        "Pg Soft": { "route": "<?= route('pg.soft') ?>", "image": "<?= asset('assets/option/provider-pg.png') ?>" },
-        "Pgs Gaming": { "route": "<?= route('pgs.gaming') ?>", "image": "<?= asset('assets/option/provider-pg.png') ?>" },
-        "Pragmatic": { "route": "<?= route('pragmatic.gaming') ?>", "image": "<?= asset('assets/option/provider-awcmpt.png') ?>" },
-        "TADA Gaming": { "route": "<?= route('tada.gaming') ?>", "image": "<?= asset('assets/option/provider-awcmrt.png') ?>" },
-        "Yea Bet": { "route": "<?= route('yea.bet') ?>", "image": "<?= asset('assets/option/provider-awcmyesbingo.png') ?>" }
-    },
-    "Sports": {
-        "BTI": { "route": "<?= route('bti') ?>", "image": "<?= asset('assets/option/icon-sbtech.png') ?>" },
-        "E Sports": { "route": "<?= route('esports') ?>", "image": "<?= asset('assets/option/icon-sportbook.png') ?>" },
-        "Luck Sports Gaming": { "route": "<?= route('luck.sport') ?>", "image": "<?= asset('assets/option/provider-awcmpp.png') ?>" },
-        "SABA Sports": { "route": "<?= route('saba.sports') ?>", "image": "<?= asset('assets/option/provider-saba.png') ?>" },
-        "United Gaming": { "route": "<?= route('united.sports') ?>", "image": "<?= asset('assets/option/provider-awcmdg.png') ?>" },
-        "WM": { "route": "<?= route('wm') ?>", "image": "<?= asset('assets/option/provider-worldmatch.png') ?>" },
-        "Cricket": { "route": "<?= route('cricket.games') ?>", "image": "<?= asset('assets/option/icon-bat.png') ?>" }
-    },
-    "Table Game": {
-        "Table Game": { "route": "<?= route('table.game') ?>", "image": "<?= asset('assets/option/icon-sbov2.png') ?>" }
-    },
-    "Lottery": {
-        "Lottery Game": { "route": "<?= route('lottery') ?>", "image": "<?= asset('assets/option/provider-awcmkm.png') ?>" }
-    }
-        };
 
-        // Function to load options dynamically
-        function loadOptions(category) {
-    let optionsHtml = '';
-    if (categoryOptions[category]) {
-        Object.entries(categoryOptions[category]).forEach(([option, data]) => {
-            optionsHtml += `
-                <a href="${data.route}" class="option-item">
-                    <img src="${data.image}" alt="${option}">
-                    <span>${option}</span>
-                </a>`;
-        });
-    }
-    $("#options-bar").html(optionsHtml);
-}
-
-
-        // Load first category options by default
-        $(document).ready(function () {
-            let firstCategory = $(".category-item:first").data("category");
-            loadOptions(firstCategory);
-
-            // Category click event
-            $(".category-item").click(function () {
-                $(".category-item").removeClass("active");
-                $(this).addClass("active");
-                let category = $(this).data("category");
-                loadOptions(category);
-            });
-        });
     </script>
 @endpush
 

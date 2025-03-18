@@ -17,7 +17,7 @@ class CheckUserStatus
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
-        if($user->status && $user->email_verification && $user->sms_verification && $user->two_fa_verify){
+        if($user->status && $user->sms_verification && $user->two_fa_verify){
             return $next($request);
         }
 

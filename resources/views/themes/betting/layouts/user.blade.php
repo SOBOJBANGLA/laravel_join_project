@@ -21,57 +21,9 @@
 
     <script src="{{ asset('assets/admin/js/fontawesome/fontawesomepro.js') }}"></script>
     <link rel="stylesheet" type="text/css" href="{{ asset($themeTrue . 'css/style.css') }}" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     @stack('style')
-    <style>
-        /* Mobile Bottom Navigation Bar */
-.mobile-bottom-nav {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    background-color: #233645;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 10px 0;
-    box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.2);
-    z-index: 1050;
-}
 
-/* Navigation Items */
-.mobile-bottom-nav .nav-item {
-    color: #ffffff;
-    text-align: center;
-    flex: 1;
-    text-decoration: none;
-    font-size: 14px;
-    transition: 0.3s;
-}
-
-/* Icons */
-.mobile-bottom-nav .nav-item i {
-    display: block;
-    font-size: 20px;
-    margin-bottom: 4px;
-}
-
-/* Hover and Active States */
-.mobile-bottom-nav .nav-item:hover,
-.mobile-bottom-nav .nav-item:active {
-    background-color: #1a2736;
-    border-radius: 5px;
-    padding: 5px;
-}
-
-/* Hide on Desktop */
-@media (min-width: 768px) {
-    .mobile-bottom-nav {
-        display: none;
-    }
-}
-
-    </style>
 </head>
 
 <body @if(session()->get('dark-mode') == 'true') class="dark-mode" @endif>
@@ -224,7 +176,6 @@
             </div>
 
             @yield('content')
-            @include($theme.'partials.bottombar')
         </div>
 
     </div>
