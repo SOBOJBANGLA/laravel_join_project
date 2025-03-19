@@ -19,11 +19,11 @@ use Illuminate\Support\Facades\Route;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-         return view('front.home');
-     })->name('front');
+// Route::get('/', function () {
+//          return view('front.home');
+//      })->name('front');
 
-
+     Route::get('/', 'FrontendController@index')->name('home');
     //  Route::group(['middleware' => 'guest'],function(){
 
     //     Route::get('user_register', [RegisterController::class, 'register'])->name('user_register');
@@ -133,15 +133,16 @@ Route::get('/', function () {
 
 
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+// Route::get('/dashboard', function () {
+//     return view('dashboard');
+// })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::middleware('auth')->group(function () {
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-});
+// Route::middleware('auth')->group(function () {
+//     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+//     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+//     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+// });
+
 Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::get('/', 'Admin\LoginController@showLoginForm')->name('login');
     Route::post('/', 'Admin\LoginController@login')->name('login');
@@ -471,4 +472,155 @@ Route::match(['get', 'post'], 'success', 'PaymentController@success')->name('suc
 Route::match(['get', 'post'], 'failed', 'PaymentController@failed')->name('failed');
 Route::match(['get', 'post'], 'payment/{code}/{trx?}/{type?}', 'PaymentController@gatewayIpn')->name('ipn');
 
+
+//other***
+
+Route::get('migrate', function () {
+    return Illuminate\Support\Facades\Artisan::call('migrate');
+});
+Route::get('gateway-update', function () {
+    return Illuminate\Support\Facades\Artisan::call('gateway:update');
+});
+
+
+Route::get('/clear', function () {
+    $output = new \Symfony\Component\Console\Output\BufferedOutput();
+    Artisan::call('optimize:clear', array(), $output);
+    return $output->fetch();
+})->name('/clear');
+
+//Result
+Route::get('/bet/result', 'FrontendController@betResult')->name('betResult');
+
+Route::post('/khalti/payment/verify/{trx}', 'khaltiPaymentController@verifyPayment')->name('khalti.verifyPayment');
+Route::post('/khalti/payment/store', 'khaltiPaymentController@storePayment')->name('khalti.storePayment');
+
+Route::get('/get/all/storts', 'Game\ApiController@get_all_sports')->name('get.all.sports');
+Route::get('/get/all/play/match', 'Game\ApiController@get_all_play_match')->name('get.all.play.match');
+Route::get('/get/market/data', 'Game\ApiController@get_market_data')->name('get.market.data');
+
+
+Route::get('/get/live/casino', 'Game\ApiController@get_live_casino')->name('get.live.game');
+
+
+Route::get('/get/game/url', 'Game\ApiController@get_game_url')->name('get.game.url');
+
+
+Route::get('/get/dmd/all/data', 'Game\ApiController@dmd_all_data');
+Route::get('/get/dmd/all/table/id', 'Game\ApiController@dmd_all_table_id');
+Route::get('/get/dmd/live/casino', 'Game\ApiController@dmd_live_casino');
+
+
+Route::get('/serabaji/create/user', 'Game\SeraBajiController@createAccount');
+Route::get('/serabaji/games', 'Game\SeraBajiController@getHtml5RngGameList')->name('serabaji.game.list');
+Route::get('/games/parse', 'Game\GameParseController@parseSoapResponseNew');
+Route::get('/serabaji/get/slot/url', 'Game\SeraBajiController@slotLogin')->name('serabaji.get.slot.url');
+
+//rapid api
+Route::get('/rapid/api/game/list', 'Game\RapidApiController@rapid_api_game_list')->name('rapid.api.game.list');
+Route::get('/rapid/api/jili/game/list', 'Game\RapidApiController@rapid_api_jili_game_list')->name('rapid.api.jili.game.list');
+Route::get('/rapid/api/pg/soft/game/list', 'Game\RapidApiController@rapid_api_pg_soft_game_list')->name('rapid.api.pg.soft.list');
+Route::post('/rapid/api/game/list/upload', 'Game\RapidApiController@rapid_api_game_list_upload')->name('rapid.api.csv.upload');
+Route::get('/rapid/api/game/open/{id}', 'Game\RapidApiController@rapid_api_game_open')->name('rapid.api.game.open');
+
+// api register user
+Route::get('/rapid/api/create/user', 'Game\RegisterUserController@create_user')->name('rapid.api.create.user');
+
+// casino live
+Route::get('/home', 'Game\AllGameController@home')->name('game.home');
+Route::get('/dream/gaming', 'Game\AllGameController@dream_gaming')->name('dream.gaming');
+Route::get('/evolution/live', 'Game\AllGameController@evolution_live')->name('evolution.live');
+Route::get('/ezugi/live', 'Game\AllGameController@ezugi_live')->name('ezugi.live');
+Route::get('/pragmatic/play/live', 'Game\AllGameController@pragmatic_play_live')->name('pragmatic.play.live');
+Route::get('/sa/gaming', 'Game\AllGameController@sa_gaming')->name('sa.gaming');
+Route::get('/sexy', 'Game\AllGameController@sexy')->name('sexy');
+
+//crash gaming
+Route::get('/crash/game', 'Game\AllGameController@crash_game')->name('crash.game');
+Route::get('/spribe', 'Game\AllGameController@spribe')->name('spribe');
+Route::get('/x/game', 'Game\AllGameController@x_game')->name('x.game');
+
+// slot game
+Route::get('/cq9', 'Game\AllGameController@cqnine')->name('cqnine');
+Route::get('/easy/gaming', 'Game\AllGameController@easy_gaming')->name('easy.gaming');
+Route::get('/fachai/gaming', 'Game\AllGameController@fachai_gaming')->name('fachai.gaming');
+Route::get('/ideal/gaming', 'Game\AllGameController@ideal_gaming')->name('ideal');
+Route::get('/jbl/gaming', 'Game\AllGameController@jbl_gaming')->name('jbl.gaming');
+Route::get('/jili/gaming', 'Game\AllGameController@jili_gaming')->name('jili');
+Route::get('/pg/soft/gaming', 'Game\AllGameController@pg_soft_gaming')->name('pg.soft');
+Route::get('/pgs/gaming', 'Game\AllGameController@pgs_gaming')->name('pgs.gaming');
+Route::get('/pragmatic/gaming', 'Game\AllGameController@pragmatic_gaming')->name('pragmatic.gaming');
+Route::get('/tada/gaming', 'Game\AllGameController@tada_gaming')->name('tada.gaming');
+Route::get('/yea/bet', 'Game\AllGameController@yea_bet')->name('yea.bet');
+
+//sports
+Route::get('/bti', 'Game\AllGameController@bti')->name('bti');
+Route::get('/esports', 'Game\AllGameController@esports')->name('esports');
+Route::get('/luck/sport', 'Game\AllGameController@luck_sport')->name('luck.sport');
+Route::get('/saba/sport', 'Game\AllGameController@saba_sport')->name('saba.sports');
+Route::get('/united/sport', 'Game\AllGameController@united_sport')->name('united.sports');
+Route::get('/wm', 'Game\AllGameController@wm')->name('wm');
+
+//table game
+Route::get('/table/game', 'Game\AllGameController@table_game')->name('table.game');
+
+//lottery
+Route::get('/lottery', 'Game\AllGameController@lottery')->name('lottery');
+
+// all game open
+Route::get('/game/casino/evo/game/open/{id}', 'Game\AllGameController@casino_evo_game_open')->name('casino.evo.game.open');
+Route::get('/game/open/{id}', 'Game\AllGameController@game_open')->name('game.open');
+Route::post('/game/callback', 'GameResponseController@game_callback')->name('game.callback');
+
+//casino/get/game/url
+Route::post('/get-game-url', 'Game\AllGameController@get_game_url')->name('game.get.url');
+
+
+Route::get('/allSports/{categoryId?}', 'GameFetchController@index')->name('allSports');
+
+
+Route::get('/language/{code?}', 'FrontendController@language')->name('language');
+
+
+Route::get('/blog-details/{slug}/{id}', 'FrontendController@blogDetails')->name('blogDetails');
+Route::get('/blog', 'FrontendController@blog')->name('blog');
+
+Route::get('/game', 'FrontendController@open_game_by_name')->name('show.game.list.by.name');
+Route::get('/category/{category_slug}/{category_id}', 'FrontendController@category')->name('category');
+Route::get('/tournament/{tournament_name}/{tournament_id}', 'FrontendController@tournament')->name('tournament');
+Route::get('/match/{match_name}/{match_id}', 'FrontendController@match')->name('match');
+Route::get('/about', 'FrontendController@about')->name('about');
+Route::get('/faq', 'FrontendController@faq')->name('faq');
+
+
+Route::get('/live/casino', 'FrontendController@live_casino')->name('live.casino');
+Route::get('/jili/game', 'FrontendController@jili_game')->name('jili.game');
+Route::get('/jili/game/open/{id}', 'FrontendController@jili_game_open')->name('jili.game.open');
+Route::get('/evolution/game', 'FrontendController@evolution_game')->name('evolution.game');
+Route::get('/evolution/game/opem/{id}', 'FrontendController@evolution_game_open')->name('evolution.game.open');
+Route::get('/diamond/game', 'FrontendController@diamond_game')->name('diamond.game');
+Route::get('/get/dmd/all/sports', 'FrontendController@dmd_all_sports')->name('diamond.all.sports');
+Route::get('/get/dmd/all/sports/open/{id}', 'FrontendController@dmd_all_sports_open')->name('dmd.all.sports.open');
+
+
+Route::get('/contact', 'FrontendController@contact')->name('contact');
+Route::post('/contact', 'FrontendController@contactSend')->name('contact.send');
+
+Route::post('/subscribe', 'FrontendController@subscribe')->name('subscribe');
+
+Route::get('/{getLink}/{content_id}', 'FrontendController@getLink')->name('getLink');
+Route::get('/serabaji/gamelist/get', 'FrontendController@getHtml5RngGameList')->name('serabaji.game.list.get');
+
+Route::middleware(['auth'])->group(function () {
+    // ... other authenticated routes ...
+    
+    Route::get('/cricket-games', [RapidApiController::class, 'getCricketMatches'])->name('cricket.games');
+    Route::post('/cricket/place-bet', [RapidApiController::class, 'placeCricketBet'])->name('cricket.place.bet');
+});
+
+
 require __DIR__.'/auth.php';
+
+
+
+

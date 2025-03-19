@@ -51,7 +51,8 @@ class FrontendController extends Controller
         $data['games'] = evolution_live::where('game_icon', '!=', '?')->where('game_icon', '!=', '')->get();
 
         return view($this->theme . 'home', $data);
-   
+
+   //return view('front.home', $data);
     }
 
 

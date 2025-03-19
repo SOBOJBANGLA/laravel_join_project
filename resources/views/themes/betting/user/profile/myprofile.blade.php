@@ -111,7 +111,7 @@
                                         <label>@lang('Email Address')</label>
                                         <div class="form-group input-box mb-3">
                                             <input class="form-control" type="email"
-                                                   value="{{ $user->email }}" readonly>
+                                                   value="{{ $user->email }}">
                                             @if($errors->has('email'))
                                                 <div
                                                     class="error text-danger">@lang($errors->first('email')) </div>

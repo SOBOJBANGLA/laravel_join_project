@@ -1,7 +1,7 @@
 <!-- navbar -->
 <nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
-        <a class="navbar-brand" href="{{route('front')}}">
+        <a class="navbar-brand" href="{{route('home')}}">
             <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" alt="homepage">
         </a>
         <button
@@ -21,10 +21,10 @@
                 </li> --}}
                 <div class="accordion d-block d-md-none shadow-sm rounded">
                     <div class="accordion-item">
-                        <a class="accordion-button bg-primary- text-white {{menuActive('front')}}" href="{{route('front')}}"> <i class="fa fa-home"></i> @lang('HOME') </a>
+                        <a class="accordion-button bg-primary- text-white {{menuActive('front')}}" href="{{route('home')}}"> <i class="fa fa-home"></i> @lang('HOME') </a>
                     </div>
                 </div>
-                    {{-- <div class="accordion d-block d-md-none shadow-sm rounded border-" id="exampleAccordion">
+                    <div class="accordion d-block d-md-none shadow-sm rounded border-" id="exampleAccordion">
                         <div class="accordion-item">
                             <h2 class="accordion-header">
                                 <button class="accordion-button bg-primary- text-white fw-bold" type="button" data-bs-toggle="collapse"
@@ -270,7 +270,7 @@
                             </div>
                         </div>
                     </div>
-                </div> --}}
+                </div>
 
                                {{-- <li class="nav-item"> --}}
                                    {{-- <a class="nav-link {{menuActive('about')}}" href="{{route('about')}}">@lang('About')</a> --}}

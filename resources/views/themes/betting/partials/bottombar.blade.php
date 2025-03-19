@@ -1,9 +1,9 @@
 @auth
 <div class="mobile-bottom-nav d-md-none">
-    {{-- <a href="{{ route('game.home') }}" class="nav-item">
+    <a href="{{ route('game.home') }}" class="nav-item">
         <i class="fas fa-home"></i>
         <span>Home</span>
-    </a> --}}
+    </a>
     <a href="{{ route('user.home') }}" class="nav-item">
         <i class="fas fa-tachometer-alt"></i>
         <span>Dashboard</span>
