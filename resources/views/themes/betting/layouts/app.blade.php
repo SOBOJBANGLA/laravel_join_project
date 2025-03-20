@@ -66,7 +66,73 @@
           color: var(--text-color);
           font-family: Arial, sans-serif;
         }
-  
+
+        .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        background: #fff; /* Adjust background as needed */
+        box-shadow: 0px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .logo-container {
+        flex-grow: 1;
+        text-align: center;
+    }
+
+    .logo-container a {
+        display: inline-block;
+    }
+
+    .header-logo {
+        height: 50px; /* Adjust as needed */
+    }
+
+    .auth-buttons {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+
+    .login-btn, .signup-btn, .country-btn {
+        padding: 8px 12px;
+        border: none;
+        cursor: pointer;
+        font-size: 14px;
+    }
+
+    .user-dropdown {
+        position: relative;
+    }
+
+    .dropdown-toggle {
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+    }
+
+    .dropdown-toggle i {
+        font-size: 18px;
+        vertical-align: middle;
+    }
+
+    .dropdown-menu {
+        position: absolute;
+        right: 0;
+        top: 100%;
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        display: none;
+    }
+
+    .user-dropdown:hover .dropdown-menu {
+        display: block;
+    }
+
+
         /* Sidebar Styles */
         .sidebar {
           position: fixed;

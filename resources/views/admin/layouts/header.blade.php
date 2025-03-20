@@ -8,11 +8,9 @@
                 <a href="{{url('/')}}">
 
                     <span class="logo-text">
-                        <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" alt="homepage"
-                             class="dark-logo"/>
-                        <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" class="light-logo"
-                             alt="homepage"/>
-                    </span>
+                        <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="dark-logo"/>
+                        <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="light-logo"/>
+                    </span> 
                 </a>
             </div>
 

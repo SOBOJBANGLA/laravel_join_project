@@ -32,28 +32,22 @@
         <div class="navbar-header">
             <div class="d-flex">
                 <!-- LOGO -->
-                <div class="navbar-brand-box">
+                <div class="navbar-brand-box">     
                     <a href="index.html" class="logo logo-dark">
                                 <span class="logo-sm">
-                                    <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" alt=""
-                                         height="22">
+                                    <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo" height="22"/>
                                 </span>
                         <span class="logo-lg">
-                                    <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" alt=""
-                                         height="17">
+                            <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo" height="17"/>
                                 </span>
                     </a>
 
                     <a href="index.html" class="logo logo-light">
                                 <span class="logo-sm">
-                                    <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}"
-                                         style="height: 100px;" alt=""
-                                         height="22">
+                                    <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo" height="80"/>
                                 </span>
                         <span class="logo-lg">
-                                    <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}"
-                                         style="height: 50px;" alt=""
-                                         height="19">
+                            <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo" height="60"/>
                                 </span>
                     </a>
                 </div>

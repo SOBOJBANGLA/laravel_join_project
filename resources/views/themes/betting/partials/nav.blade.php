@@ -2,7 +2,7 @@
 <nav class="navbar navbar-expand-md fixed-top">
     <div class="container-fluid">
         <a class="navbar-brand" href="{{route('home')}}">
-            <img src="{{asset('assets/themes/betting/images/SeraBajiLogo.png')}}" alt="homepage">
+            <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo"/>
         </a>
         <button
             class="navbar-toggler p-0"

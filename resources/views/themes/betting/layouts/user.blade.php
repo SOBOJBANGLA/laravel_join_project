@@ -23,6 +23,10 @@
     <link rel="stylesheet" type="text/css" href="{{ asset($themeTrue . 'css/style.css') }}" />
 
     @stack('style')
+    <style>
+
+
+    </style>
 
 </head>
 

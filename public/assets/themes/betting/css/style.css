@@ -682,7 +682,7 @@ a.btn-custom {
 .dark-mode .navbar .navbar-text .notification-panel .dropdown-toggle:hover,
 .dark-mode .navbar .navbar-text .user-dropdown .dropdown-toggle:hover,
 .dark-mode .navbar .navbar-text .btn-custom:hover {
-    background: var(--primary);
+    background: #FF7F00;
 }
 
 .dark-mode .navbar .navbar-text .notification-panel .notification-dropdown {
@@ -1239,7 +1239,7 @@ a.btn-custom {
 
 .dark-mode .leftbar li a.active,
 .dark-mode .leftbar li a:hover {
-    background: var(--primary);
+    background: #FF7F00;
     color: var(--white);
 }
 

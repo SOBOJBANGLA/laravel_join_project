@@ -1,5 +1,9 @@
 <div class="header">
-    <img src="{{asset('images/Pro gaming logo.png')}}" alt="BengalBet" class="header-logo" />
+    <div class="logo-container">
+        <a href="{{ route('home') }}">
+            <img src="{{ asset('images/Pro gaming logo.png') }}" alt="BengalBet" class="header-logo"/>
+        </a>
+    </div>
 
   <div class="auth-buttons">
       @if (!Auth::check())
@@ -13,7 +17,7 @@
               <button type="submit">Logout</button>
           </form>
 
-          <div class="dropdown user-dropdown d-inline-block">
+          <div class="dropdown user-dropdown">
             <button class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="fa fa-user"></i>
             </button>
