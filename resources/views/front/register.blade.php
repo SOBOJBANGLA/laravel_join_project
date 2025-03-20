@@ -9,7 +9,7 @@
             <input type="tel" name="phone" id="signupPhone" placeholder="Phone Number" required />
             <input type="hidden" name="country_code" id="countryCode">
 
-            <input type="password" name="password" placeholder="Password" required />
+            <input type="password" name="password" style="margin-top:5px " placeholder="Password" required />
   
             <button type="submit">Submit</button>
             <p>Already a member? <a href="#" id="goToLogin">Log in</a></p>

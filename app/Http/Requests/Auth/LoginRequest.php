@@ -35,7 +35,8 @@ class LoginRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => ['required', 'string', 'exists:users,phone'],
+            // 'phone' => ['required', 'string', 'exists:users,phone'],
+            'phone_code' => ['required', 'string'],
             'password' => ['required', 'string'],
         ];
     }
@@ -61,9 +62,17 @@ class LoginRequest extends FormRequest
     //     RateLimiter::clear($this->throttleKey());
     // }
 
+    // public function authenticate()
+    // {
+    //     if (!Auth::attempt(['phone' => $this->phone, 'password' => $this->password], $this->boolean('remember'))) {
+    //         throw \Illuminate\Validation\ValidationException::withMessages([
+    //             'phone' => __('auth.failed'),
+    //         ]);
+    //     }
+    // }
     public function authenticate()
     {
-        if (!Auth::attempt(['phone' => $this->phone, 'password' => $this->password], $this->boolean('remember'))) {
+        if (!Auth::attempt(['phone_code' => $this->phone_code, 'password' => $this->password], $this->boolean('remember'))) {
             throw \Illuminate\Validation\ValidationException::withMessages([
                 'phone' => __('auth.failed'),
             ]);
